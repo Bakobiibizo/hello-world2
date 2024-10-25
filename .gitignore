@@ -415,3 +415,5 @@ temp/
 logs.db
 agent/
 ethereum_private_key.txt
+hello_world/
+.env
