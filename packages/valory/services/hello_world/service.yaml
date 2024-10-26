@@ -7,7 +7,7 @@ license: Apache-2.0
 fingerprint:
   README.md: bafybeiapubcoersqnsnh3acia5hd7otzt7kjxekr6gkbrlumv6tkajl6jm
 fingerprint_ignore_patterns: []
-agent: valory/hello_world:0.1.0:bafybeihtmp45mbfs5tyzrgxfoimh552on6dif42ifqidifait3ej2m5zvq
+agent: valory/hello_world:0.1.0:bafybeidryr4rnlffmfjwtd76krkwxd4vajagczctrmyretge6rw4gzo2aa
 number_of_agents: 4
 deployment: {}
 ---
@@ -36,7 +36,8 @@ type: skill
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
         owner: ${OWNER0}
         setup: *id001
-        hello_world_message: ${HELLO_WORLD_STRING_0:str:Hello world! The owner's address is ${OWNER0}}
+        hello_world_message: ${HELLO_WORLD_STRING_0:str:Hello world! The owner's address
+          is ${OWNER0}}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
@@ -49,7 +50,8 @@ type: skill
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
         owner: ${OWNER1}
         setup: *id001
-        hello_world_message: ${HELLO_WORLD_STRING_1:str:Hello world! The owner's address is ${OWNER1}}
+        hello_world_message: ${HELLO_WORLD_STRING_1:str:Hello world! The owner's address
+          is ${OWNER1}}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
@@ -62,7 +64,8 @@ type: skill
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
         owner: ${OWNER2}
         setup: *id001
-        hello_world_message: ${HELLO_WORLD_STRING_2:str:Hello world! The owner's address is ${OWNER2}}
+        hello_world_message: ${HELLO_WORLD_STRING_2:str:Hello world! The owner's address
+          is ${OWNER2}}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
@@ -75,7 +78,8 @@ type: skill
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
         owner: ${OWNER3}
         setup: *id001
-        hello_world_message: ${HELLO_WORLD_STRING_3:str:Hello world! The owner's address is ${OWNER3}}
+        hello_world_message: ${HELLO_WORLD_STRING_3:str:Hello world! The owner's address
+          is ${OWNER3}}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
