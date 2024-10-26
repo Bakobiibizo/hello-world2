@@ -69,6 +69,21 @@ class SynchronizedData(
             List[str],
             self.db.get_strict("printed_messages"),
         )
+        
+    @property
+    def owner(self) -> str:
+        """Get the agent's owner address"""
+        return 
+    
+    @property
+    def owner1(self) -> str:
+        """Get agent 1's owner address"""
+        return 
+    
+    @property
+    def all_participants(self) -> list[str]:
+        """Get the all agent participants addresses."""
+        return self.all_participants
 
 
 class HelloWorldABCIAbstractRound(AbstractRound, ABC):
