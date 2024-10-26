@@ -65,10 +65,32 @@ To use the script:
 
 1. Ensure you have all the system requirements installed (Python, Tendermint, Pipenv, Docker, etc.).
 2. Open a terminal in the project root directory.
-3. Run the script:
+3. Add your user to the docker group for elevated permissions
 
 ```bash
-bash run_service.sh
+sudo usermod -aG docker $USER
+```
+
+After adding your user to the Docker group, you'll need to log out and back in for the changes to take effect.
+
+Or if you prefer you can run the script with sudo.
+
+4. Allow execution of the script
+
+```bash
+chmod +x run_service.sh
+```
+
+4. Run the script:
+
+```bash
+./run_service.sh
+```
+
+or with sudo
+
+```bash
+sudo ./run_service.sh
 ```
 
 The script will:
