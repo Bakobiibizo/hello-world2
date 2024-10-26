@@ -53,7 +53,6 @@ class SharedState(BaseSharedState):
         HelloWorldAbciApp.event_to_timeout[Event.RESET_TIMEOUT] = (
             self.context.params.reset_pause_duration + MARGIN
         )
-        
 
 
 class HelloWorldParams(BaseParams):

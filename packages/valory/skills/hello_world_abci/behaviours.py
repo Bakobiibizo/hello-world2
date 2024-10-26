@@ -19,7 +19,6 @@
 
 """This module contains the behaviours for the 'hello_world' skill."""
 
-import json
 import random
 from abc import ABC
 from typing import Generator, Set, Type, cast
@@ -185,7 +184,7 @@ class PrintMessageBehaviour(HelloWorldABCIBaseBehaviour, ABC):
         - Wait until ABCI application transitions to the next round.
         - Go to the next behaviour (set done event).
         """
-        
+
         if (
             self.context.agent_address
             == self.synchronized_data.most_voted_keeper_address
