@@ -200,10 +200,10 @@ class PrintMessageBehaviour(HelloWorldABCIBaseBehaviour, ABC):
         self.context.logger.info(f"ALL_PARTICIPANTS={self.params.all_participants}")
         self.context.logger.info(
             f"""OWNER={self.params.owner}
-OWNER0={self.params.setup_params["owner0"]}
-OWNER1={self.params.setup_params["owner1"]}
-OWNER2={self.params.setup_params["owner2"]}
-OWNER3={self.params.setup_params["owner3"]}
+OWNER0={self.params.owner0}
+OWNER1={self.params.owner1}
+OWNER2={self.params.owner2}
+OWNER3={self.params.owner3}
 """
         )
 

@@ -113,13 +113,9 @@ models:
       setup:
         all_participants:
         - ${str:${ALL_PARTICIPANTS}}
-        owner0: ${str:${OWNER0}}
-        owner1: ${str:${OWNER1}}
-        owner2: ${str:${OWNER2}}
-        owner3: ${str:${OWNER3}}
         safe_contract_address: '0x0000000000000000000000000000000000000000'
         consensus_threshold: null
-      owner: ${str:${OWNER}}
+      owner: ${str:'0x0000000000000000000000000000000000000000'}
       share_tm_config_on_startup: false
       sleep_time: 1
       tendermint_check_sleep_delay: 3
