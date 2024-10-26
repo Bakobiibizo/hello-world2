@@ -7,7 +7,7 @@ license: Apache-2.0
 fingerprint:
   README.md: bafybeiapubcoersqnsnh3acia5hd7otzt7kjxekr6gkbrlumv6tkajl6jm
 fingerprint_ignore_patterns: []
-agent: valory/hello_world:0.1.0:bafybeihwhprqpwvcuysfxpmxhgv5hm2robrwvhihr23gi7j4clp3u7w5xe
+agent: valory/hello_world:0.1.0:bafybeibghsgpjpz33hb6zgrc7qyc5zqr7pqnvgp3zixdm4qk2wiw46kqoq
 number_of_agents: 4
 deployment: {}
 ---
@@ -19,10 +19,10 @@ extra:
     args:
       setup: &id001
         all_participants: ${ALL_PARTICIPANTS:list:${ALL_PARTICIPANTS}}
-        owner0: ${OWNER0}
-        owner1: ${OWNER1}
-        owner2: ${OWNER2}
-        owner3: ${OWNER3}
+        owner0: ${str:${OWNER0}}
+        owner1: ${str:${OWNER1}}
+        owner2: ${str:${OWNER2}}
+        owner3: ${str:${OWNER3}}
         safe_contract_address: ${SAFE_CONTRACT_ADDRESS:str:0x0000000000000000000000000000000000000000}
         consensus_threshold: ${CONSENSUS_THRESHOLD:int:null}
 public_id: valory/hello_world_abci:0.1.0
@@ -34,10 +34,10 @@ type: skill
         service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:null}
         share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:false}
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
-        owner: ${OWNER0}
+        owner: ${str:${OWNER0}}
         setup: *id001
         hello_world_message: ${HELLO_WORLD_STRING_0:str:Hello world! The owner's address
-          is ${OWNER0}}
+          is ${str:${OWNER0}}}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
@@ -48,10 +48,10 @@ type: skill
         service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:null}
         share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:false}
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
-        owner: ${OWNER1}
+        owner: ${str:${OWNER1}}
         setup: *id001
         hello_world_message: ${HELLO_WORLD_STRING_1:str:Hello world! The owner's address
-          is ${OWNER1}}
+          is ${str:${OWNER1}}}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
@@ -62,10 +62,10 @@ type: skill
         service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:null}
         share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:false}
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
-        owner: ${OWNER2}
+        owner: ${str:${OWNER2}}
         setup: *id001
         hello_world_message: ${HELLO_WORLD_STRING_2:str:Hello world! The owner's address
-          is ${OWNER2}}
+          is ${str:${OWNER2}}}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
@@ -76,10 +76,10 @@ type: skill
         service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:null}
         share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:false}
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
-        owner: ${OWNER3}
+        owner: ${str:${OWNER3}}
         setup: *id001
         hello_world_message: ${HELLO_WORLD_STRING_3:str:Hello world! The owner's address
-          is ${OWNER3}}
+          is ${str:${OWNER3}}}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
