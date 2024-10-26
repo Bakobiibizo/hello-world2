@@ -351,6 +351,8 @@ def check_ipfs_hashes(  # pylint: disable=too-many-locals,too-many-statements
     # Fix packages in python files
     all_py_files = [Path("autonomy", "constants.py")]
     for py_file in all_py_files:
+        if not py_file.exists():
+            continue
         content = read_file(str(py_file))
         for match in [m.groupdict() for m in re.finditer(FULL_PACKAGE_REGEX, content)]:
             full_package = match["full_package"]
@@ -391,50 +393,51 @@ def check_ipfs_hashes(  # pylint: disable=too-many-locals,too-many-statements
 
     # Fix hashes in package list
     package_list_file = Path(ROOT_DIR, "docs", "package_list.md")
-    content = read_file(str(package_list_file))
+    if package_list_file.exists():
+        content = read_file(str(package_list_file))
 
-    for match in [m.groupdict() for m in re.finditer(PACKAGE_TABLE_REGEX, content)]:
-        expected_hash = package_manager.get_hash_by_attributes(
-            match["package_type"], match["vendor"], match["package"]
-        )
-        package_hash = match["hash"]
+        for match in [m.groupdict() for m in re.finditer(PACKAGE_TABLE_REGEX, content)]:
+            expected_hash = package_manager.get_hash_by_attributes(
+                match["package_type"], match["vendor"], match["package"]
+            )
+            package_hash = match["hash"]
 
-        if package_hash == expected_hash:
-            continue
+            if package_hash == expected_hash:
+                continue
 
-        print(
-            f"IPFS hash mismatch in doc file {package_list_file}.\n"
-            f'\tPackage: {match["package_type"]}/{match["vendor"]}/{match["package"]}\n'
-            f"\tExpected: {expected_hash},\n"
-            f"\tFound: {package_hash}\n"
-        )
-        hash_mismatches = True
+            print(
+                f"IPFS hash mismatch in doc file {package_list_file}.\n"
+                f'\tPackage: {match["package_type"]}/{match["vendor"]}/{match["package"]}\n'
+                f"\tExpected: {expected_hash},\n"
+                f"\tFound: {package_hash}\n"
+            )
+            hash_mismatches = True
 
-        # Overwrite with new hash
+            # Overwrite with new hash
+            if fix:
+                content = content.replace(package_hash, expected_hash)
+
         if fix:
-            content = content.replace(package_hash, expected_hash)
+            with open(str(package_list_file), "w", encoding="utf-8") as p_file:
+                p_file.write(content)
+            print(f"Fixed some IPFS hashes in doc file {package_list_file}")
 
-    if fix:
-        with open(str(package_list_file), "w", encoding="utf-8") as p_file:
-            p_file.write(content)
-        print(f"Fixed some IPFS hashes in doc file {package_list_file}")
+        if fix and errors:
+            raise ValueError(
+                "There were some errors while fixing IPFS hashes. Check the logs."
+            )
 
-    if fix and errors:
-        raise ValueError(
-            "There were some errors while fixing IPFS hashes. Check the logs."
-        )
+        if not fix and (hash_mismatches or errors):
+            print("There are mismatching IPFS hashes in the docs.")
+            sys.exit(1)
 
-    if not fix and (hash_mismatches or errors):
-        print("There are mismatching IPFS hashes in the docs.")
-        sys.exit(1)
+        if matches == 0:
+            print(
+                "No commands were found in the docs. The command regex is probably outdated."
+            )
+            sys.exit(1)
 
-    if matches == 0:
-        print(
-            "No commands were found in the docs. The command regex is probably outdated."
-        )
-        sys.exit(1)
-
-    print("Checking doc IPFS hashes finished successfully.")
+        print("Checking doc IPFS hashes finished successfully.")
 
 
 if __name__ == "__main__":

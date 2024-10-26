@@ -162,6 +162,8 @@ def _generate_apidocs_packages(executor: ThreadPoolExecutor) -> None:
 
 def _generate_apidocs_plugins(executor: ThreadPoolExecutor) -> None:
     """Generate API docs for cyrpto plugins."""
+    if not PLUGIN_DIR.exists():
+        return
     for plugin in PLUGIN_DIR.iterdir():
         plugin_name = plugin.name
         plugin_module_name = plugin_name.replace("-", "_")
@@ -172,7 +174,7 @@ def _generate_apidocs_plugins(executor: ThreadPoolExecutor) -> None:
                 continue
             # remove ".py"
             relative_module_path = module_path.relative_to(python_package_root)
-            suffix = Path(str(relative_module_path)[:-3] + ".md")
+            suffix = Path(f"{str(relative_module_path)[:-3]}.md")
             dotted_path = ".".join(module_path.parts)[:-3]
             doc_file = API_DIR / "plugins" / plugin_module_name / suffix
             executor.submit(make_pydoc, dotted_path, doc_file)

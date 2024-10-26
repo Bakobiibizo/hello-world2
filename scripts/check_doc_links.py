@@ -105,6 +105,10 @@ def check_file(
         if url in url_skips:
             continue
 
+        # Check for autonolas sites to avoid bot detection looping the request
+        if "https://docs.autonolas.network/" in url:
+            continue
+
         # Check for broken links: 200 and 403 codes are admitted
         try:
             # Do not verify requests. Expired SSL certificates would make those links fail
