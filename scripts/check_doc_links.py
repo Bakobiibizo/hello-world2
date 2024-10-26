@@ -104,7 +104,7 @@ def check_file(
         # Check for url skips
         if url in url_skips:
             continue
-        
+
         # Check for autonolas sites to avoid bot detection looping the request
         if "https://docs.autonolas.network/" in url:
             continue
