@@ -351,6 +351,8 @@ def check_ipfs_hashes(  # pylint: disable=too-many-locals,too-many-statements
     # Fix packages in python files
     all_py_files = [Path("autonomy", "constants.py")]
     for py_file in all_py_files:
+        if not py_file.exists():
+            continue
         content = read_file(str(py_file))
         for match in [m.groupdict() for m in re.finditer(FULL_PACKAGE_REGEX, content)]:
             full_package = match["full_package"]
