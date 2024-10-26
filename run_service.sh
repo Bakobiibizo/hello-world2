@@ -1,32 +1,24 @@
 #!/usr/bin/env bash
 
+# Global variables for file paths
 REPO_PATH="$PWD"
 PACKAGE_PATH="$REPO_PATH/hello_world"
 
-# declare -A required_vars=(
-#     ["ETHEREUM_LEDGER_RPC_0"]="http://localhost:8545"
-#     ["ETHEREUM_LEDGER_CHAIN_ID"]="null"
-#     ["SAFE_CONTRACT_ADDRESS"]="0x0000000000000000000000000000000000000000"
-#     ["TENDERMINT_P2P_URL"]="localhost:26656"
-#     ["TENDERMINT_URL"]="http://localhost:26657"
-# )
-
-# declare -A required_vars=(
-#   ["ALL_PARTICIPANTS"]='[]'
-#   ["OWNER0"]=""
-#   ["OWNER1"]=""
-#   ["OWNER2"]=""
-#   ["OWNER3"]=""
-# )
-
-
+# Flags for file overwriting
 overwrite_env_file=false
 overwrite_keys_file=false
 
+# Convert a string to lowercase
+# Args:
+#   $1: The string to convert
+# Returns:
+#   The lowercase version of the input string
 to_lowercase() {
     echo "$1" | tr '[:upper:]' '[:lower:]'
 }
 
+# Prompt the user to remove existing .env and keys.json files
+# Sets global variables overwrite_env_file and overwrite_keys_file
 prompt_to_remove() {
     if [[ -f "$REPO_PATH/.env" ]]; then 
         read -p "./.env file is already present, would you like to overwrite it?(Y/n) " overwrite_env
@@ -50,33 +42,8 @@ prompt_to_remove() {
     fi
 }
 
-# check_existing_env() {
-#     if [[ -f "$REPO_PATH/.env" ]]; then
-#         echo "Checking existing .env file..."
-#         missing_vars=()
-#         for var in "${!required_vars[@]}"; do
-#             if ! grep -q "^$var=" "$REPO_PATH/.env"; then
-#                 missing_vars+=("$var")
-#             fi
-#         done
-        
-#         if [[ ${#missing_vars[@]} -gt 0 ]]; then
-#             echo "The following required variables are missing from .env:"
-#             for var in "${missing_vars[@]}"; do
-#                 echo "$var"
-#                 read -p "Please enter a value or hit enter to use default [${required_vars[$var]}]: " user_input
-#                 echo "$var=${user_input:-${required_vars[$var]}}" >> "$REPO_PATH/.env"
-#                 echo "Set environment variable $var=${user_input:-${required_vars[$var]}}"
-#             done
-#         else
-#             echo "All required variables are present in .env"
-#         fi
-#     else
-#         echo "Error: $REPO_PATH/.env file not found."
-#         exit 1
-#     fi
-# }
-
+# Check if the keys.json file exists and is valid
+# Exits with an error if the file is missing or invalid
 check_existing_keys() {
     if [ -f "$REPO_PATH/keys.json" ]; then
         echo "Checking existing keys.json file..."
@@ -108,6 +75,8 @@ check_existing_keys() {
     fi
 }
 
+# Set the ALL_PARTICIPANTS environment variable based on keys.json
+# Appends the variable to the .env file
 set_all_participants() {
     if [ -f "$REPO_PATH/hello_world/keys.json" ]; then
         # Create a JSON array of addresses
@@ -122,6 +91,8 @@ set_all_participants() {
     fi
 }
 
+# Set individual OWNER environment variables based on keys.json
+# Appends the variables to the .env file
 set_owners() {
     counter=0
     if [ -f "$REPO_PATH/hello_world/keys.json" ]; then
@@ -136,17 +107,7 @@ set_owners() {
     fi
 }
 
-# set_variables() {
-#     for var in "${!required_vars[@]}"; do
-#         if [[ -z "${!var}" ]]; then
-#             echo "$var is not set."
-#             read -p "Please enter a value or hit enter to use default [${required_vars[$var]}]: " user_input
-#             echo "$var=${user_input:-${required_vars[$var]}}" >> "$REPO_PATH/.env"
-#             echo "Set environment variable $var=${user_input:-${required_vars[$var]}}"
-#         fi
-#     done
-# }
-
+# Export all environment variables from the .env file
 export_environment_variables() {
     if [ -f "$REPO_PATH/.env" ]; then
         echo "Exporting environment variables from $REPO_PATH/.env"
@@ -160,12 +121,14 @@ export_environment_variables() {
     fi
 }
 
+# Generate new Ethereum keys using the autonomy CLI
 generate_keys() {
     cd "$REPO_PATH/hello_world"
     autonomy generate-key ethereum -n 4
     cp "$REPO_PATH/hello_world/keys.json" "$REPO_PATH/keys.json"
 }
 
+# Load existing keys from keys.json
 load_keys() {
     if [ -f "$REPO_PATH/keys.json" ]; then
         echo "Existing keys found $REPO_PATH/keys.json. Copying..."
@@ -176,6 +139,7 @@ load_keys() {
     fi
 }
 
+# Generate new keys or load existing ones based on the overwrite_keys_file flag
 generate_or_load_keys() {
     if [[ "$overwrite_keys_file" == true ]]; then
         echo "Generating new keys..."
@@ -188,6 +152,7 @@ generate_or_load_keys() {
     fi
 }
 
+# Load the .env file into the hello_world directory
 load_env() {
     if [ -f "$REPO_PATH/.env" ]; then
         cp "$REPO_PATH/.env" "$REPO_PATH/hello_world/.env"
@@ -197,6 +162,7 @@ load_env() {
     fi
 }
 
+# Initialize the service by cleaning up previous installations and fetching the latest version
 initialize() {
     if [ -d "$REPO_PATH/hello_world" ]; then
         echo "Cleaning up previous service"
@@ -215,6 +181,7 @@ initialize() {
 
 }
 
+# Build the service image and deploy it
 build() {
     cd "$REPO_PATH/hello_world"
 
@@ -227,10 +194,12 @@ build() {
     sudo chmod -R 777 "$REPO_PATH/hello_world"
 }
 
+# Run the deployed service
 run() {
     autonomy deploy run --build-dir "$REPO_PATH/hello_world/abci_build"
 }
 
+# Main script execution
 prompt_to_remove
 
 initialize
@@ -240,7 +209,6 @@ generate_or_load_keys
 if [[ "$overwrite_env_file" == true ]]; then
     set_all_participants
     set_owners
-    # set_variables
 else
     check_existing_env
 fi
