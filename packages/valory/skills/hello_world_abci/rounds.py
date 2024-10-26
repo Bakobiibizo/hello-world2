@@ -70,54 +70,6 @@ class SynchronizedData(
             self.db.get_strict("printed_messages"),
         )
 
-    @property
-    def all_participants(self) -> List[str]:
-        """Get the particpants list of public address"""
-        
-        return cast(
-            List[str],
-            self.db.get_strict("all_participants")
-        )
-        
-    @property
-    def owner(self) -> str:
-        """Get the owner's address"""
-        
-        return cast(
-            self.db.get_strict("owner")
-        )
-        
-    @property 
-    def owner0(self) -> str:
-        """Get owner0's address"""
-        
-        return cast(
-            self.db.get_strict("owner0")
-        )
-    
-    @property
-    def owner1(self) -> str:
-        """Get owner1's address"""
-        
-        return cast(
-            self.db.get_strict("owner1")
-        )
-    
-    @property
-    def owner1(self) -> str:
-        """Get owner2's address"""
-        
-        return cast(
-            self.db.get_strict("owner2")
-        )
-    
-    @property
-    def owner3(self) -> str:
-        """Get owner3's address"""
-        
-        return cast(
-            self.db.get_strict("owner3")
-        )
 
 class HelloWorldABCIAbstractRound(AbstractRound, ABC):
     """Abstract round for the Hello World ABCI skill."""
