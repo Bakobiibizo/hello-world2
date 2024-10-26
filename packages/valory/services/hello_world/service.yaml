@@ -18,7 +18,11 @@ extra:
   params_args:
     args:
       setup: &id001
-        all_participants: ${ALL_PARTICIPANTS:list:["0x0000000000000000000000000000000000000000"]}
+        all_participants: ${ALL_PARTICIPANTS:list:${ALL_PARTICIPANTS}}
+        owner0: ${OWNER0}
+        owner1: ${OWNER1}
+        owner2: ${OWNER2}
+        owner3: ${OWNER3}
         safe_contract_address: ${SAFE_CONTRACT_ADDRESS:str:0x0000000000000000000000000000000000000000}
         consensus_threshold: ${CONSENSUS_THRESHOLD:int:null}
 public_id: valory/hello_world_abci:0.1.0
@@ -30,8 +34,9 @@ type: skill
         service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:null}
         share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:false}
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
+        owner: ${OWNER0}
         setup: *id001
-        hello_world_message: ${HELLO_WORLD_STRING_0:str:HELLO_WORLD! (from Agent 0)}
+        hello_world_message: ${HELLO_WORLD_STRING_0:str:Hello world! The owner's address is ${OWNER0}}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
@@ -42,8 +47,9 @@ type: skill
         service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:null}
         share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:false}
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
+        owner: ${OWNER1}
         setup: *id001
-        hello_world_message: ${HELLO_WORLD_STRING_1:str:HELLO_WORLD! (from Agent 1)}
+        hello_world_message: ${HELLO_WORLD_STRING_1:str:Hello world! The owner's address is ${OWNER1}}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
@@ -54,8 +60,9 @@ type: skill
         service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:null}
         share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:false}
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
+        owner: ${OWNER2}
         setup: *id001
-        hello_world_message: ${HELLO_WORLD_STRING_2:str:HELLO_WORLD! (from Agent 2)}
+        hello_world_message: ${HELLO_WORLD_STRING_2:str:Hello world! The owner's address is ${OWNER2}}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
@@ -66,8 +73,9 @@ type: skill
         service_registry_address: ${SERVICE_REGISTRY_ADDRESS:str:null}
         share_tm_config_on_startup: ${SHARE_TM_CONFIG_ON_STARTUP:bool:false}
         on_chain_service_id: ${ON_CHAIN_SERVICE_ID:int:null}
+        owner: ${OWNER3}
         setup: *id001
-        hello_world_message: ${HELLO_WORLD_STRING_3:str:HELLO_WORLD! (from Agent 3)}
+        hello_world_message: ${HELLO_WORLD_STRING_3:str:Hello world! The owner's address is ${OWNER3}}
         reset_pause_duration: ${RESET_PAUSE_DURATION:int:10}
     benchmark_tool:
       args: *id002
