@@ -6,7 +6,7 @@ Example of an autonomous service using the [Open Autonomy](https://docs.autonola
 
 - Python `>=3.10`
 - [Tendermint](https://docs.tendermint.com/v0.34/introduction/install.html) `==0.34.19`
-- [Pipenv](https://pipenv.pypa.io/en/latest/installation/) `>=2021.x.xx`
+- [Pipenv](https://pipenv.pypa.io/en/latest/installation.html) `>=2021.x.xx`
 - [Docker Engine](https://docs.docker.com/engine/install/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - The [Open Autonomy](https://docs.autonolas.network/open-autonomy/guides/set_up/#set-up-the-framework) framework
